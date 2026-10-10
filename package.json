@@ -1,0 +1,10 @@
+{
+  "name": "@rona/nix-sapling-cli",
+  "version": "0.3.2",
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.3.13",
+  "dependencies": {
+    "@os-eco/sapling-cli": "0.3.2"
+  }
+}

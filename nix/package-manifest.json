@@ -1,0 +1,25 @@
+{
+  "package": {
+    "repo": "sapling-cli",
+    "npmName": "@os-eco/sapling-cli",
+    "version": "0.3.2",
+    "packageRevision": 1
+  },
+  "binary": {
+    "name": "sapling",
+    "upstreamName": "sapling",
+    "entrypoint": "src/index.ts",
+    "aliases": [
+      "sp"
+    ]
+  },
+  "meta": {
+    "description": "Headless coding agent with proactive context management",
+    "homepage": "https://github.com/jayminwest/sapling",
+    "licenseSpdx": "MIT"
+  },
+  "dist": {
+    "url": "https://registry.npmjs.org/@os-eco/sapling-cli/-/sapling-cli-0.3.2.tgz",
+    "hash": "sha512-7wBUk8Zh17h4yHW44/8Sdl4e3vcLe+MQJ1OfBkK3rMPeCwX9Sivapff11E03bRiEocPs9ThZIt8+Fxq9dV3HvA=="
+  }
+}

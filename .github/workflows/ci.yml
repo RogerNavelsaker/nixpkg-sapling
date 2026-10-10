@@ -1,0 +1,30 @@
+name: CI & Cache Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      - name: Check Flake
+        run: nix flake check
+
+      - name: Smoke-test Sapling CLI and alias
+        run: |
+          sapling_path="$(nix build .#default --no-link --print-out-paths)"
+          "$sapling_path/bin/sapling" version --json
+          sp_path="$(nix build '.#default^sp' --no-link --print-out-paths)"
+          "$sp_path/bin/sp" --version --json
