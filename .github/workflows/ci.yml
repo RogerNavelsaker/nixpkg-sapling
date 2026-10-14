@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   build:
@@ -19,12 +23,18 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
+      - name: Set up Cachix
+        uses: cachix/cachix-action@v16
+        with:
+          name: rogernavelsaker
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
       - name: Check Flake
-        run: nix flake check
+        run: nix flake check --accept-flake-config --print-build-logs
 
       - name: Smoke-test Sapling CLI and alias
         run: |
-          sapling_path="$(nix build .#default --no-link --print-out-paths)"
+          sapling_path="$(nix build .#default --accept-flake-config --no-link --print-out-paths)"
           "$sapling_path/bin/sapling" version --json
-          sp_path="$(nix build '.#default^sp' --no-link --print-out-paths)"
+          sp_path="$(nix build '.#default^sp' --accept-flake-config --no-link --print-out-paths)"
           "$sp_path/bin/sp" --version --json
